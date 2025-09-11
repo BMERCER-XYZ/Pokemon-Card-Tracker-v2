@@ -2,8 +2,8 @@ name: Update Pokemon Card Prices
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # Run daily at 12 PM UTC
-  workflow_dispatch:  # Allow manual trigger
+  - cron: '30 17 * * *'
+  workflow_dispatch: # Allows manual runs
 
 jobs:
   update-prices:
