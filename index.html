@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon-Card-Tracker-v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0b10;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .owner-section {
+            background: #343a40;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .owner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .owner-name {
+            font-size: 2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .total-value {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 20px;
+        }
+
+        .card-item {
+            background: #adb5bd;
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #bd64f8;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-name {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-pid {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c5aa0;
+        }
+
+        .price-change {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .price-up {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .price-down {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .price-stable {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .chart-container {
+            margin-top: 15px;
+        }
+
+        .chart-controls {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .time-toggle {
+            padding: 5px 12px;
+            border: 2px solid #bd64f8;
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            color: #667eea;
+        }
+
+        .time-toggle.active {
+            background: #bd64f8;
+            color: white;
+        }
+
+        .time-toggle:hover {
+            background: #bd64f8;
+            color: white;
+        }
+
+        .price-chart {
+            height: 120px !important;
+            max-height: 120px;
+            min-height: 80px;
+            width: 100% !important;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .no-price {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .no-chart {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        /* Owner stats badges */
+        .owner-stats {
+            margin-top: 6px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .delta {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.8em;
+        }
+        .delta-up { background: #d4edda; color: #155724; }
+        .delta-down { background: #f8d7da; color: #721c24; }
+        .delta-flat { background: #e2e3e5; color: #383d41; }
+        .delta-na { background: #eeeeee; color: #777; }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .owner-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="display: flex; align-items: center; justify-content: center; gap: 18px;">
+            <div style="flex:1; text-align:left;">
+                <h1 style="margin-bottom:0;">Pokemon-Card-Tracker-v2</h1>
+                <p style="margin-top:8px;">Proudly Built By <a href="https://www.bmercer.xyz" target="_blank" rel="noopener noreferrer" style="color:#2c5aa0; text-decoration:underline;">BMERCER.XYZ</a></p>
+            </div>
+            <img src="Running-Pikachu-GIF.gif.webp" alt="Running Pikachu" style="height:64px; width:auto; margin-left:12px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.10);" />
+        </div>
+        
+        <div id="content" class="loading">
+            Loading cards...
+        </div>
+        <div id="top-performers-section" style="margin-top:40px;"></div>
+    </div>
+
+    <script>
+    let charts = {};
+    let allHistoricalData = {};
+    let selectedScopes = {};
+    let uidToPid = {};
+
+        async function loadData() {
+            try {
+                const [currentData, historicalData] = await Promise.all([
+                    fetch('data.json').then(r => r.json()),
+                    fetch('historical.json').then(r => r.json()).catch(() => ({}))
+                ]);
+                allHistoricalData = historicalData;
+                displayCards(currentData, historicalData);
+                displayTopPerformers(currentData, historicalData);
+            } catch (error) {
+                document.getElementById('content').innerHTML = '<p style="color: #ff6b6b;">Error loading data. Please try again.</p>';
+            }
+        }
+        function displayTopPerformers(currentData, historicalData) {
+            // Gather all cards with their owner
+            let allCards = [];
+            Object.entries(currentData).forEach(([owner, cards]) => {
+                cards.forEach(card => {
+                    allCards.push({ ...card, owner });
+                });
+            });
+
+            // Helper to get top N by price change for a timeframe
+            function getTopN(timeframe, N = 3) {
+                let cardsWithChange = allCards.map(card => {
+                    const hist = historicalData[card.pid] || [];
+                    if (!hist.length) return null;
+                    const filtered = timeframe === 'ALL' ? hist : filterDataByTimeframe(hist, timeframe);
+                    if (!filtered.length) return null;
+                    const startPrice = filtered[0].price;
+                    const endPrice = filtered[filtered.length - 1].price;
+                    if (startPrice == null || endPrice == null) return null;
+                    return {
+                        ...card,
+                        change: endPrice - startPrice,
+                        percent: startPrice > 0 ? ((endPrice - startPrice) / startPrice) * 100 : 0,
+                        startPrice,
+                        endPrice
+                    };
+                }).filter(Boolean);
+                // Sort by absolute change (descending)
+                cardsWithChange.sort((a, b) => b.change - a.change);
+                return cardsWithChange.slice(0, N);
+            }
+
+            const timeframes = [
+                { label: 'All Time', key: 'ALL' },
+                { label: 'Past Month', key: 'MONTH' },
+                { label: 'Past Week', key: 'WEEK' }
+            ];
+
+            let html = `<div style="background:#343a40; border-radius:20px; padding:30px; box-shadow:0 20px 40px rgba(0,0,0,0.1); color:white;">
+                <h2 style="text-align:center; font-size:2em; font-weight:700; margin-bottom:20px;">Top 3 Performing Cards</h2>
+                <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+            `;
+            timeframes.forEach(tf => {
+                const top = getTopN(tf.key, 3);
+                html += `<div style="flex:1 1 300px; min-width:260px; max-width:350px; background:#22242a; border-radius:15px; padding:20px;">
+                    <h3 style="text-align:center; font-size:1.2em; font-weight:600; margin-bottom:15px;">${tf.label}</h3>`;
+                if (top.length === 0) {
+                    html += `<div style="color:#bbb; text-align:center;">No data available</div>`;
+                } else {
+                    html += `<ol style="list-style:none; padding:0; margin:0;">`;
+                    top.forEach(card => {
+                        html += `<li style="margin-bottom:18px; background:#adb5bd; color:#222; border-radius:10px; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+                            <div style="font-weight:600; font-size:1.05em;">${card.name} <span style="font-size:0.9em; color:#555;">(${card.owner})</span></div>
+                            <div style="font-size:0.95em; margin-top:2px;">PID: <a href="https://www.tcgplayer.com/product/${card.pid}" target="_blank" rel="noopener noreferrer" style="color:#2c5aa0; text-decoration:underline;">${card.pid}</a></div>
+                            <div style="margin-top:6px; font-size:1em;">
+                                <span style="font-weight:600; color:${card.change > 0 ? '#155724' : (card.change < 0 ? '#721c24' : '#383d41')};">
+                                    ${card.change > 0 ? '↗' : (card.change < 0 ? '↘' : '→')} ${card.change > 0 ? '+' : ''}$${Math.abs(card.change).toFixed(2)}
+                                </span>
+                                <span style="font-size:0.95em; opacity:0.7; margin-left:8px;">(${card.percent > 0 ? '+' : ''}${card.percent.toFixed(1)}%)</span>
+                            </div>
+                            <div style="font-size:0.9em; color:#555; margin-top:2px;">From $${card.startPrice.toFixed(2)} to $${card.endPrice.toFixed(2)}</div>
+                        </li>`;
+                    });
+                    html += `</ol>`;
+                }
+                html += `</div>`;
+            });
+            html += `</div></div>`;
+            document.getElementById('top-performers-section').innerHTML = html;
+        }
+
+        function makeUid(owner, pid) {
+            return `${owner}-${pid}`.replace(/[^\w-]/g, '_');
+        }
+
+        function displayCards(currentData, historicalData) {
+            const content = document.getElementById('content');
+            content.innerHTML = '';
+            content.className = '';
+
+            Object.entries(currentData).forEach(([owner, cards]) => {
+                const totalValue = cards.reduce((sum, card) => sum + (card.foil_price || 0), 0);
+
+                // NEW: compute owner deltas
+                const deltas = computeOwnerDeltas(cards, historicalData);
+                const allClass = deltaClass(deltas.ALL);
+                const monthClass = deltaClass(deltas.MONTH);
+                const weekClass = deltaClass(deltas.WEEK);
+
+                const section = document.createElement('div');
+                section.className = 'owner-section';
+                section.innerHTML = `
+                    <div class="owner-header">
+                        <div>
+                            <div class="owner-name">${owner}</div>
+                            <div class="owner-stats">
+                                <span class="delta ${allClass}">ALL: ${formatDelta(deltas.ALL)}</span>
+                                <span class="delta ${monthClass}">MONTH: ${formatDelta(deltas.MONTH)}</span>
+                                <span class="delta ${weekClass}">WEEK: ${formatDelta(deltas.WEEK)}</span>
+                            </div>
+                        </div>
+                        <div class="total-value">Total Value: $${totalValue.toFixed(2)}</div>
+                    </div>
+                    <div class="cards-grid">
+                        ${cards.map(card => createCardHTML(card, historicalData[card.pid] || [], owner)).join('')}
+                    </div>
+                `;
+                content.appendChild(section);
+                
+                // Create charts after DOM is updated
+                cards.forEach(card => {
+                    const uid = makeUid(owner, card.pid);
+                    uidToPid[uid] = card.pid;
+                    if (historicalData[card.pid] && historicalData[card.pid].length > 0) {
+                        console.log(`Scheduling chart creation for ${uid} with ${historicalData[card.pid].length} data points`);
+                        setTimeout(() => createChart(uid, historicalData[card.pid], 'ALL'), 500);
+                    } else {
+                        console.log(`No historical data for ${uid}`);
+                    }
+                });
+            });
+        }
+
+        function createCardHTML(card, historical, owner) {
+            const uid = makeUid(owner, card.pid);
+            const currentPrice = card.foil_price;
+            const scope = selectedScopes[uid] || 'ALL';
+            const filteredHistorical = filterDataByTimeframe(historical, scope);
+            const priceChange = calculatePriceChange(currentPrice, filteredHistorical, scope);
+            const hasData = historical.length > 0;
+            
+            return `
+                <div class="card-item">
+                    <div class="card-name">${card.name}</div>
+                    <div class="card-pid">PID: <a href="https://www.tcgplayer.com/product/${card.pid}" target="_blank" rel="noopener noreferrer" style="color:#2c5aa0; text-decoration:underline;">${card.pid}</a></div>
+                    <div class="price-info">
+                        <div class="current-price">
+                            ${currentPrice ? `$${currentPrice.toFixed(2)}` : '<span class="no-price">No Price Available</span>'}
+                        </div>
+                        <span id="price-change-${uid}">${priceChange.html}</span>
+                    </div>
+                    ${hasData ? `
+                        <div class="chart-container">
+                            <div class="chart-controls">
+                                <button class="time-toggle active" onclick="updateChart('${uid}', 'ALL')">ALL</button>
+                                <button class="time-toggle" onclick="updateChart('${uid}', 'MONTH')">MONTH</button>
+                                <button class="time-toggle" onclick="updateChart('${uid}', 'WEEK')">WEEK</button>
+                            </div>
+                            <canvas class="price-chart" id="chart-${uid}" height="120"></canvas>
+                        </div>
+                    ` : '<div class="no-chart">No historical data available</div>'}
+                </div>
+            `;
+        }
+
+        function calculatePriceChange(currentPrice, historical, scope) {
+            if (!currentPrice || historical.length === 0) {
+                return { html: '' };
+            }
+
+            const firstPrice = historical[0]?.price;
+            if (!firstPrice) return { html: '' };
+
+            const change = currentPrice - firstPrice;
+            const changePercent = ((change / firstPrice) * 100).toFixed(1);
+
+            let className, symbol;
+            if (change > 0) {
+                className = 'price-up';
+                symbol = '↗';
+            } else if (change < 0) {
+                className = 'price-down';
+                symbol = '↘';
+            } else {
+                className = 'price-stable';
+                symbol = '→';
+            }
+
+            // Show scope in tooltip
+            const scopeLabel = scope ? ` (${scope})` : '';
+
+            // Format value change
+            const valueChange = (change > 0 ? '+' : (change < 0 ? '-' : '')) + '$' + Math.abs(change).toFixed(2);
+
+            return {
+                html: `<div class="price-change ${className}" title="Change for selected period${scopeLabel}">${symbol} ${changePercent}% <span style="font-weight:400; font-size:0.95em; opacity:0.8;">(${valueChange})</span></div>`
+            };
+        }
+
+        function filterDataByTimeframe(data, timeframe) {
+            if (timeframe === 'ALL') return data;
+            
+            const now = new Date();
+            let cutoffDate;
+            
+            if (timeframe === 'WEEK') {
+                cutoffDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            } else if (timeframe === 'MONTH') {
+                cutoffDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+            }
+            
+            return data.filter(entry => new Date(entry.date) >= cutoffDate);
+        }
+
+        function createChart(uid, historical, timeframe = 'ALL') {
+            console.log(`Creating chart for ${uid}, timeframe: ${timeframe}`);
+            const canvas = document.getElementById(`chart-${uid}`);
+            if (!canvas) {
+                console.error(`Canvas not found for ${uid}`);
+                return;
+            }
+            if (historical.length === 0) {
+                console.error(`No historical data for ${uid}`);
+                return;
+            }
+
+            // Force canvas dimensions
+            canvas.style.height = '120px';
+            canvas.style.width = '100%';
+            canvas.height = 120;
+
+            // Destroy existing chart if it exists
+            if (charts[uid]) {
+                charts[uid].destroy();
+            }
+
+            const filteredData = filterDataByTimeframe(historical, timeframe);
+            if (filteredData.length === 0) {
+                console.error(`No filtered data for PID ${pid} with timeframe ${timeframe}`);
+                return;
+            }
+
+            console.log(`Chart data for ${uid}:`, filteredData.slice(0, 3));
+
+            const ctx = canvas.getContext('2d');
+            const data = filteredData.map(entry => ({ 
+                x: entry.date, 
+                y: entry.price 
+            }));
+
+            const minPrice = Math.min(...data.map(d => d.y));
+            const maxPrice = Math.max(...data.map(d => d.y));
+            const priceRange = maxPrice - minPrice;
+            const padding = priceRange * 0.1;
+
+            try {
+                charts[uid] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        data: data,
+                        borderColor: '#bd64f8',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return new Date(context[0].parsed.x).toLocaleDateString();
+                                },
+                                label: function(context) {
+                                    return `$${context.parsed.y.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: { 
+                                unit: timeframe === 'WEEK' ? 'day' : timeframe === 'MONTH' ? 'day' : 'month'
+                            },
+                            grid: { display: false },
+                            ticks: { 
+                                font: { size: 10 },
+                                maxTicksLimit: 6
+                            }
+                        },
+                        y: {
+                            min: Math.max(0, minPrice - padding),
+                            max: maxPrice + padding,
+                            grid: { 
+                                color: 'rgba(0,0,0,0.1)',
+                                drawBorder: false
+                            },
+                            ticks: { 
+                                font: { size: 10 },
+                                callback: function(value) {
+                                    return '$' + value.toFixed(0);
+                                }
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log(`Chart created successfully for ${uid}`);
+            } catch (error) {
+                console.error(`Error creating chart for ${uid}:`, error);
+            }
+        }
+
+        function updateChart(uid, timeframe) {
+            // Update active button
+            const cardItem = document.getElementById(`chart-${uid}`).closest('.card-item');
+            const buttons = cardItem.querySelectorAll('.time-toggle');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === timeframe) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Store selected scope
+            selectedScopes[uid] = timeframe;
+
+            // Recreate chart with new timeframe
+            const pid = uidToPid[uid];
+            const historical = allHistoricalData[pid] || [];
+            createChart(uid, historical, timeframe);
+
+            // Update percentage change for this scope
+            const filteredHistorical = filterDataByTimeframe(historical, timeframe);
+            // Find the current price from the latest entry in filteredHistorical, or fallback to the last entry in allHistoricalData
+            const currentPrice = filteredHistorical.length > 0
+                ? filteredHistorical[filteredHistorical.length - 1].price
+                : (historical.length > 0 ? historical[historical.length - 1].price : null);
+            const priceChange = calculatePriceChange(currentPrice, filteredHistorical, timeframe);
+            const priceChangeElem = document.getElementById(`price-change-${uid}`);
+            if (priceChangeElem) {
+                priceChangeElem.innerHTML = priceChange.html;
+            }
+        }
+
+        // Helpers for owner stats
+        function computeOwnerDeltas(cards, historicalData) {
+            const timeframes = ['ALL', 'MONTH', 'WEEK'];
+            const deltas = {};
+            timeframes.forEach(tf => {
+                let deltaSum = 0;
+                let counted = 0;
+
+                cards.forEach(card => {
+                    const hist = historicalData[card.pid] || [];
+                    if (!hist.length) return;
+
+                    const filtered = tf === 'ALL' ? hist : filterDataByTimeframe(hist, tf);
+                    if (!filtered.length) return;
+
+                    const startPrice = filtered[0].price;
+                    const endPrice = filtered[filtered.length - 1].price;
+                    if (startPrice == null || endPrice == null) return;
+
+                    deltaSum += (endPrice - startPrice);
+                    counted++;
+                });
+
+                deltas[tf] = counted > 0 ? round2(deltaSum) : null; // null -> N/A
+            });
+            return deltas;
+        }
+
+        function formatDelta(value) {
+            if (value === null) return 'N/A';
+            const sign = value > 0 ? '+' : '';
+            return `${sign}$${Math.abs(value).toFixed(2)}`.replace('$', `$${sign ? '' : ''}`).replace('++', '+'); // keep +$
+        }
+
+        function deltaClass(value) {
+            if (value === null) return 'delta-na';
+            if (value > 0) return 'delta-up';
+            if (value < 0) return 'delta-down';
+            return 'delta-flat';
+        }
+
+        function round2(n) { return Math.round(n * 100) / 100; }
+
+        // Initialize the page
+        loadData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+509980,Ben,Charizard EX 223/197
+518872,Ben,Mewtwo Promo 052
+226432,Ben,Fat Pikachu 044/185
+219233,Ben,Charizard VMAX 020/189
+610510,Ben,Espeon EX 155/131
+523875,Ben,Minun 194/182
+477354,Ben,Deoxys VMAX GG45/GG70
+124113,Ben,M Venusaur EX 100/108
+124116,Ben, Mewtwo EX 103/108
+107273,Ben,M Houndoom EX 154/162
+535090,Hayden,Charizard EX 234/091
+285384,Hayden,Charizard V Sword & Shield Promo
+285378,Hayden,Charizard VMAX Promo
+285396,Hayden,Charizard VSTAR Promo
+477060,Hayden,Leafeon VSTAR GG35/GG70
+518871,Hayden,Mew EX Promo
+616824,Hayden,Greninja EX Metal 106/167
+535101,Hayden,Iono Full art Trainer 237/091
+518872,Hayden,Mewtwo Promo 052
+542886,Hayden,Deerling 165/162
+477060,Bailey,Leafeon VSTAR GG35/GG70
+523930,Bailey,Iron Valiant ex - 249/182
+478065,Bailey,Entei V GG36/GG70
+213277,Bailey,Sonia 203/192
+542919,Bailey,Ciphermaniac's Codebreaking 198/162
+542890,Bailey,Charjabug 169/162
+523868,Bailey,Iron Moth 187/182
