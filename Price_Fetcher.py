@@ -1,7 +1,7 @@
 import os
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 CARDS_FILE = "cards.txt"
 DATA_JSON = "data.json"
@@ -42,7 +42,16 @@ def save_historical_data(historical_data):
 def main():
     owners = {}
     historical_data = load_historical_data()
-    today = datetime.now().strftime('%Y-%m-%d')
+    
+    # Calculate Adelaide time (UTC+9:30) to ensure consistent dating
+    # When the action runs at 17:30 UTC, it's 3:00 AM next day in Adelaide
+    utc_now = datetime.now(timezone.utc)
+    adelaide_time = utc_now + timedelta(hours=9, minutes=30)
+    today = adelaide_time.strftime('%Y-%m-%d')
+    
+    print(f"🕐 Current UTC time: {utc_now}")
+    print(f"🇦🇺 Adelaide time: {adelaide_time}")
+    print(f"📅 Using date: {today}")
     
     with open(CARDS_FILE, "r") as f:
         for line_num, line in enumerate(f, 1):
