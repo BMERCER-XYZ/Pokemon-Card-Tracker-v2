@@ -93,10 +93,6 @@
             overflow: hidden;
         }
 
-        .card-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
 
         .card-name {
             font-weight: 600;
@@ -113,8 +109,9 @@
 
         .price-info {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
             margin-bottom: 15px;
         }
 
@@ -122,13 +119,20 @@
             font-size: 1.4em;
             font-weight: 700;
             color: #2c5aa0;
+            margin-bottom: 0.2em;
         }
 
         .price-change {
             padding: 5px 12px;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 1em;
+            min-width: 120px;
+            max-width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            display: block;
+            margin-bottom: 2px;
         }
 
         .price-up {
@@ -227,19 +231,47 @@
         .delta-flat { background: #e2e3e5; color: #383d41; }
         .delta-na { background: #eeeeee; color: #777; }
 
-        @media (max-width: 768px) {
+    @media (max-width: 768px) {
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            
             .header h1 {
                 font-size: 2em;
             }
-            
             .owner-header {
                 flex-direction: column;
                 gap: 10px;
             }
+            .price-info {
+                align-items: stretch;
+                gap: 4px;
+            }
+            .current-price {
+                font-size: 1.18em;
+                margin-bottom: 0.1em;
+            }
+            .price-change {
+                font-size: 1em;
+                min-width: 110px;
+                padding: 6px 0;
+            }
+        @media (max-width: 480px) {
+            .price-change {
+                font-size: 0.95em;
+                min-width: 90px;
+                padding: 5px 0;
+            }
+            .current-price {
+                font-size: 1em;
+            }
+        }
+        @media (max-width: 480px) {
+            .price-change {
+                font-size: 0.98em;
+                min-width: 90px;
+                padding: 5px 0;
+            }
+        }
         }
     </style>
 </head>
