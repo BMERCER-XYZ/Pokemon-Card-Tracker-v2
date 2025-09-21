@@ -3,22 +3,22 @@
     {
       "pid": "509980",
       "name": "Charizard EX 223/197",
-      "foil_price": 124.34
+      "foil_price": 122.55
     },
     {
       "pid": "518872",
       "name": "Mewtwo Promo 052",
-      "foil_price": 39.38
+      "foil_price": 37.84
     },
     {
       "pid": "226432",
       "name": "Fat Pikachu 044/185",
-      "foil_price": 8.4
+      "foil_price": 7.95
     },
     {
       "pid": "219233",
       "name": "Charizard VMAX 020/189",
-      "foil_price": 50.35
+      "foil_price": 50.15
     },
     {
       "pid": "610510",
@@ -28,22 +28,22 @@
     {
       "pid": "523875",
       "name": "Minun 194/182",
-      "foil_price": 23.03
+      "foil_price": 23.1
     },
     {
       "pid": "477354",
       "name": "Deoxys VMAX GG45/GG70",
-      "foil_price": 43.29
+      "foil_price": 44.33
     },
     {
       "pid": "124113",
       "name": "M Venusaur EX 100/108",
-      "foil_price": 52.25
+      "foil_price": 51.65
     },
     {
       "pid": "124116",
       "name": "Mewtwo EX 103/108",
-      "foil_price": 43.33
+      "foil_price": 43.25
     },
     {
       "pid": "107273",
@@ -55,32 +55,32 @@
     {
       "pid": "535090",
       "name": "Charizard EX 234/091",
-      "foil_price": 313.31
+      "foil_price": 313.9
     },
     {
       "pid": "285384",
       "name": "Charizard V Sword & Shield Promo",
-      "foil_price": 46.89
+      "foil_price": 46.99
     },
     {
       "pid": "285378",
       "name": "Charizard VMAX Promo",
-      "foil_price": 63.12
+      "foil_price": 63.56
     },
     {
       "pid": "285396",
       "name": "Charizard VSTAR Promo",
-      "foil_price": 74.96
+      "foil_price": 75.03
     },
     {
       "pid": "477060",
       "name": "Leafeon VSTAR GG35/GG70",
-      "foil_price": 55.2
+      "foil_price": 56.01
     },
     {
       "pid": "518871",
       "name": "Mew EX Promo",
-      "foil_price": 77.42
+      "foil_price": 75.1
     },
     {
       "pid": "616824",
@@ -90,34 +90,34 @@
     {
       "pid": "535101",
       "name": "Iono Full art Trainer 237/091",
-      "foil_price": 28.66
+      "foil_price": 29.04
     },
     {
       "pid": "518872",
       "name": "Mewtwo Promo 052",
-      "foil_price": 39.38
+      "foil_price": 37.84
     },
     {
       "pid": "542886",
       "name": "Deerling 165/162",
-      "foil_price": 21.4
+      "foil_price": 21.13
     }
   ],
   "Bailey": [
     {
       "pid": "477060",
       "name": "Leafeon VSTAR GG35/GG70",
-      "foil_price": 55.2
+      "foil_price": 56.01
     },
     {
       "pid": "523930",
       "name": "Iron Valiant ex - 249/182",
-      "foil_price": 23.25
+      "foil_price": 23.91
     },
     {
       "pid": "478065",
       "name": "Entei V GG36/GG70",
-      "foil_price": 41.65
+      "foil_price": 42.04
     },
     {
       "pid": "213277",
@@ -127,7 +127,7 @@
     {
       "pid": "542919",
       "name": "Ciphermaniac's Codebreaking 198/162",
-      "foil_price": 5.83
+      "foil_price": 5.8
     },
     {
       "pid": "542890",
@@ -137,7 +137,7 @@
     {
       "pid": "523868",
       "name": "Iron Moth 187/182",
-      "foil_price": 4.97
+      "foil_price": 5.1
     }
   ]
 }
