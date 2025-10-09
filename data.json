@@ -3,17 +3,17 @@
     {
       "pid": "509980",
       "name": "Charizard EX 223/197",
-      "foil_price": 103.05
+      "foil_price": 99.17
     },
     {
       "pid": "518872",
       "name": "Mewtwo Promo 052",
-      "foil_price": 33.13
+      "foil_price": 32.88
     },
     {
       "pid": "226432",
       "name": "Fat Pikachu 044/185",
-      "foil_price": 8.1
+      "foil_price": 7.98
     },
     {
       "pid": "219233",
@@ -28,12 +28,12 @@
     {
       "pid": "523875",
       "name": "Minun 194/182",
-      "foil_price": 23.96
+      "foil_price": 24.08
     },
     {
       "pid": "477354",
       "name": "Deoxys VMAX GG45/GG70",
-      "foil_price": 50.91
+      "foil_price": 50.59
     },
     {
       "pid": "124113",
@@ -60,64 +60,64 @@
     {
       "pid": "285384",
       "name": "Charizard V Sword & Shield Promo",
-      "foil_price": 39.09
+      "foil_price": 38.54
     },
     {
       "pid": "285378",
       "name": "Charizard VMAX Promo",
-      "foil_price": 39.95
+      "foil_price": 40.07
     },
     {
       "pid": "285396",
       "name": "Charizard VSTAR Promo",
-      "foil_price": 59.53
+      "foil_price": 59.32
     },
     {
       "pid": "477060",
       "name": "Leafeon VSTAR GG35/GG70",
-      "foil_price": 56.72
+      "foil_price": 56.35
     },
     {
       "pid": "518871",
       "name": "Mew EX Promo",
-      "foil_price": 61.29
+      "foil_price": 61.77
     },
     {
       "pid": "616824",
       "name": "Greninja EX Metal 106/167",
-      "foil_price": 29.16
+      "foil_price": 29.45
     },
     {
       "pid": "535101",
       "name": "Iono Full art Trainer 237/091",
-      "foil_price": 29.97
+      "foil_price": 30.01
     },
     {
       "pid": "518872",
       "name": "Mewtwo Promo 052",
-      "foil_price": 33.13
+      "foil_price": 32.88
     },
     {
       "pid": "542886",
       "name": "Deerling 165/162",
-      "foil_price": 20.33
+      "foil_price": 20.8
     }
   ],
   "Bailey": [
     {
       "pid": "477060",
       "name": "Leafeon VSTAR GG35/GG70",
-      "foil_price": 56.72
+      "foil_price": 56.35
     },
     {
       "pid": "523930",
       "name": "Iron Valiant ex - 249/182",
-      "foil_price": 24.75
+      "foil_price": 24.84
     },
     {
       "pid": "478065",
       "name": "Entei V GG36/GG70",
-      "foil_price": 36.47
+      "foil_price": 36.25
     },
     {
       "pid": "213277",
@@ -132,12 +132,12 @@
     {
       "pid": "542890",
       "name": "Charjabug 169/162",
-      "foil_price": 5.21
+      "foil_price": 5.16
     },
     {
       "pid": "523868",
       "name": "Iron Moth 187/182",
-      "foil_price": 4.81
+      "foil_price": 4.63
     }
   ]
 }
