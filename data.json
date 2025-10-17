@@ -3,17 +3,17 @@
     {
       "pid": "509980",
       "name": "Charizard EX 223/197",
-      "foil_price": 93.03
+      "foil_price": 92.09
     },
     {
       "pid": "518872",
       "name": "Mewtwo Promo 052",
-      "foil_price": 30.68
+      "foil_price": 29.79
     },
     {
       "pid": "226432",
       "name": "Fat Pikachu 044/185",
-      "foil_price": 8.38
+      "foil_price": 8.4
     },
     {
       "pid": "219233",
@@ -28,7 +28,7 @@
     {
       "pid": "523875",
       "name": "Minun 194/182",
-      "foil_price": 25.36
+      "foil_price": 25.44
     },
     {
       "pid": "477354",
@@ -55,22 +55,22 @@
     {
       "pid": "535090",
       "name": "Charizard EX 234/091",
-      "foil_price": 308.26
+      "foil_price": 307.81
     },
     {
       "pid": "285384",
       "name": "Charizard V Sword & Shield Promo",
-      "foil_price": 36.02
+      "foil_price": 34.84
     },
     {
       "pid": "285378",
       "name": "Charizard VMAX Promo",
-      "foil_price": 34.3
+      "foil_price": 34.57
     },
     {
       "pid": "285396",
       "name": "Charizard VSTAR Promo",
-      "foil_price": 59.76
+      "foil_price": 59.35
     },
     {
       "pid": "477060",
@@ -80,7 +80,7 @@
     {
       "pid": "518871",
       "name": "Mew EX Promo",
-      "foil_price": 59.86
+      "foil_price": 59.55
     },
     {
       "pid": "616824",
@@ -90,17 +90,17 @@
     {
       "pid": "535101",
       "name": "Iono Full art Trainer 237/091",
-      "foil_price": 29.87
+      "foil_price": 29.83
     },
     {
       "pid": "518872",
       "name": "Mewtwo Promo 052",
-      "foil_price": 30.68
+      "foil_price": 29.79
     },
     {
       "pid": "542886",
       "name": "Deerling 165/162",
-      "foil_price": 18.94
+      "foil_price": 18.89
     }
   ],
   "Bailey": [
@@ -132,12 +132,12 @@
     {
       "pid": "542890",
       "name": "Charjabug 169/162",
-      "foil_price": 4.84
+      "foil_price": 4.51
     },
     {
       "pid": "523868",
       "name": "Iron Moth 187/182",
-      "foil_price": 5.14
+      "foil_price": 5.32
     }
   ]
 }
